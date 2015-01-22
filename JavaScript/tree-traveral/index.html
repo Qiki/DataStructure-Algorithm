@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test tree-traversal.js</title>
+  <script src='tree-traversal.js'></script>
+  <script>
+
+    var root = new DomNode('div', {
+      id: 'root',
+      className: 'container'
+    });
+
+    var header = new DomNode('div', {
+      className: 'header',
+      content: 'Awesome Algorithm'
+    });
+
+    var content = new DomNode('div', {
+      className: 'content'
+    });
+
+    var description = new DomNode('p', {
+      className: 'description',
+      content: 'These are some features of this data structure.'
+    });
+
+    var list = new DomNode('ul');
+
+    list.addChild(new DomNode('li', {
+      content: 'almost a html dom implementation'
+    })).addChild(new DomNode('li', {
+      content: 'Breadth-first search'
+    })).addChild(new DomNode('li', {
+      content: 'find by id and class'
+    })).addChild(new DomNode('li', {
+      className: 'future',
+      content: 'jquery style selector'
+    })).addChild(new DomNode('li', {
+      className: 'future',
+      content: 'code may need refactor'
+    })).addChild(new DomNode('li', {
+      className: 'future',
+      content: 'parsing real html to dom'
+    })).addChild(new DomNode('li', {
+      className: 'future',
+      content: 'more robust'
+    })).addChild(new DomNode('li', {
+      id: 'author',
+      content: 'Neil Ding'
+    }));
+
+    content
+      .addChild(description)
+      .addChild(list);
+
+    root
+      .addChild(header)
+      .addChild(content);
+
+    console.log('The author is: ');
+    console.log(root.findById('author').text());
+
+    console.log('');
+    console.log('The future is: ');
+    root.findByClass('future').forEach(function(node) {
+      console.log(node.text());
+    });
+
+    console.log('');
+    console.log('The Whole Tree is: ');
+    root.findByClass('', function(node) {
+      console.log(node.text());
+    });
+
+  </script>
+</head>
+<body>
+  <h1>Test tree-traversal.js</h1>
+  <div>Check Console</div>
+</body>
+</html>

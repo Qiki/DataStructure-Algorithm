@@ -88,8 +88,8 @@
 
     (function test_tagWalker() {
 
-      var parser = initParser(DomNode); 
       var html = '<div class="container">some div content.<span id="words">some span text.</span></div>';
+      var parser = initParser(DomNode);
       var walker = parser.tagWalker(html);
       var currentTag = walker.next();
 

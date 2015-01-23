@@ -4,74 +4,106 @@
   <meta charset="UTF-8">
   <title>Test tree-traversal.js</title>
   <script src='tree-traversal.js'></script>
+  <script src='html-parser.js'></script>
   <script>
 
-    var root = new DomNode('div', {
-      id: 'root',
-      className: 'container'
-    });
+    console.log('==========================================');
+    console.log('========= Test tree-traversl.js =========');
+    console.log('==========================================');
 
-    var header = new DomNode('div', {
-      className: 'header',
-      content: 'Awesome Algorithm'
-    });
+    (function test_DomNode() {
 
-    var content = new DomNode('div', {
-      className: 'content'
-    });
+      var root = new DomNode('div', {
+        id: 'root',
+        className: 'container'
+      });
 
-    var description = new DomNode('p', {
-      className: 'description',
-      content: 'These are some features of this data structure.'
-    });
+      var header = new DomNode('div', {
+        className: 'header',
+        content: 'Awesome Algorithm'
+      });
 
-    var list = new DomNode('ul');
+      var content = new DomNode('div', {
+        className: 'content'
+      });
 
-    list.addChild(new DomNode('li', {
-      content: 'almost a html dom implementation'
-    })).addChild(new DomNode('li', {
-      content: 'Breadth-first search'
-    })).addChild(new DomNode('li', {
-      content: 'find by id and class'
-    })).addChild(new DomNode('li', {
-      className: 'future',
-      content: 'jquery style selector'
-    })).addChild(new DomNode('li', {
-      className: 'future',
-      content: 'code may need refactor'
-    })).addChild(new DomNode('li', {
-      className: 'future',
-      content: 'parsing real html to dom'
-    })).addChild(new DomNode('li', {
-      className: 'future',
-      content: 'more robust'
-    })).addChild(new DomNode('li', {
-      id: 'author',
-      content: 'Neil Ding'
-    }));
+      var description = new DomNode('p', {
+        className: 'description',
+        content: 'These are some features of this data structure.'
+      });
 
-    content
-      .addChild(description)
-      .addChild(list);
+      var list = new DomNode('ul');
 
-    root
-      .addChild(header)
-      .addChild(content);
+      list.addChild(new DomNode('li', {
+        content: 'almost a html dom implementation'
+      })).addChild(new DomNode('li', {
+        content: 'Breadth-first search'
+      })).addChild(new DomNode('li', {
+        content: 'find by id and class'
+      })).addChild(new DomNode('li', {
+        className: 'future',
+        content: 'jquery style selector'
+      })).addChild(new DomNode('li', {
+        className: 'future',
+        content: 'code may need refactor'
+      })).addChild(new DomNode('li', {
+        className: 'future',
+        content: 'parsing real html to dom'
+      })).addChild(new DomNode('li', {
+        className: 'future',
+        content: 'more robust'
+      })).addChild(new DomNode('li', {
+        id: 'author',
+        content: 'Neil Ding'
+      }));
 
-    console.log('The author is: ');
-    console.log(root.findById('author').text());
+      content
+        .addChild(description)
+        .addChild(list);
 
-    console.log('');
-    console.log('The future is: ');
-    root.findByClass('future').forEach(function(node) {
-      console.log(node.text());
-    });
+      root
+        .addChild(header)
+        .addChild(content);
 
-    console.log('');
-    console.log('The Whole Tree is: ');
-    root.findByClass('', function(node) {
-      console.log(node.text());
-    });
+      console.log('The author is: ');
+      console.log(root.findById('author').text());
+
+      console.log('');
+      console.log('The future is: ');
+      root.findByClass('future').forEach(function(node) {
+        console.log(node.text());
+      });
+
+      console.log('');
+      console.log('The Whole Tree is: ');
+      root.findByClass('', function(node) {
+        console.log(node.text());
+      });
+
+   })();
+
+    console.log('====================================================');
+    console.log('========= Test html-parser.js tag_walker() =========');
+    console.log('====================================================');
+
+    (function test_tagWalker() {
+
+      var html = '<div class="container">some div content.<span id="words">some span text.</span></div>';
+      var parser = initParser(DomNode);
+      var walker = parser.tagWalker(html);
+      var currentTag = walker.next();
+
+      while(currentTag) {
+        console.log('---------------- TAG ----------------');
+        console.log(currentTag.tagName);
+        console.log(currentTag.property);
+        console.log(currentTag.endTag);
+        console.log(currentTag.contentBefore);
+
+        currentTag = walker.next();
+      }
+
+    })();
 
   </script>
 </head>

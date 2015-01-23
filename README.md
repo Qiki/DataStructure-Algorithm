@@ -1,2 +1,2 @@
 # DataStructure-Algorithm
-DataStructure and Algorithm in Java and JavasSript
+DataStructure and Algorithm in Java and JavaScript

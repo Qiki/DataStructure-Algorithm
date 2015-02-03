@@ -1,4 +1,5 @@
 /* Find the array[i] = i in a sorted array of integers
+ * Three Solutions:Linear Search, Binary Search, Recursive Binary Search
  */
 
 public class FindMagicIndex {

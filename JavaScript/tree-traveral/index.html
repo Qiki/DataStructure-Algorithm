@@ -105,6 +105,19 @@
 
     })();
 
+    console.log('====================================================');
+    console.log('========= Test html-parser.js parse() =========');
+    console.log('====================================================');
+
+    (function test_parse() {
+
+      var html = '<div class="container"><p><b>strong b</b>haha 1</p>some div content.<span id="words1">some span text 1.<span id="words2">some span text 2.<span id="words3">some span text 3.<span id="words4">some span text 4.<span id="words5-1">some span text 5.</span><span id="words5-2">some span text 5 too.</span></span></span></span></span></div>';
+      var parser = initParser(DomNode);
+      var rootNode = parser.parse(html);
+
+      rootNode.render();
+    })();
+
   </script>
 </head>
 <body>

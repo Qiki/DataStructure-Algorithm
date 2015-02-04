@@ -10,7 +10,7 @@ function initParser(DomNode) {
     'p',
     'h1', 'h2', 'h3', 'h4',
     'ul', 'li',
-    'span', 'a'
+    'span', 'a', 'b'
   ];
 
   return {
@@ -160,6 +160,43 @@ function initParser(DomNode) {
   }
 
   function parse(html) {
+    var walker = tagWalker(html);
+    var currentTag = walker.next();
+    var stack = [];
+    var currentNode = null;
+    var parentNode = null;
 
+    while (currentTag) {
+      if (!currentTag.endTag) {
+        // save the level of current node
+        currentTag.property.level = stack.length;
+
+        // content before the open tag belongs to its parent
+        if (stack.length > 0 && currentTag.contentBefore) {
+          stack[stack.length - 1].content += currentTag.contentBefore || '';
+        }
+
+        currentNode = new DomNode(currentTag.tagName, currentTag.property);
+        stack.push(currentNode);
+      } else {
+        currentNode = stack.pop();
+
+        // return the root node
+        if (stack.length === 0) {
+          return currentNode;
+        }
+
+        if (currentTag.tagName !== currentNode.tagName) {
+          return console.error('malformated html');
+        }
+
+        currentNode.content += currentTag.contentBefore;
+        parentNode = stack[stack.length - 1];
+        parentNode.addChild(currentNode);
+      }
+      currentTag = walker.next();
+    }
+
+    return false;
   }
 }

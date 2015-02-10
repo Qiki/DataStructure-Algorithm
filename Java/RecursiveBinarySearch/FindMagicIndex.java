@@ -1,4 +1,4 @@
-/* Find the array[i] = i in a sorted array of integers
+/* Question: Find the array[i] = i in a sorted array of integers
  * Three Solutions:Linear Search, Binary Search, Recursive Binary Search
  */
 
@@ -59,5 +59,30 @@ public class FindMagicIndex {
 		} else {
 			return recursive(array, start, mid - 1);
 		}
+	}
+	
+	//If elements are not distinct
+	public int magicSearch (int [] array, int start, int end) {
+		int mid = (start + end) / 2;
+		
+		if (end < start || start < 0 || end > array.length) {
+			return -1;
+		}
+		
+		if (array[mid] == mid) {
+			return mid;
+		} 
+		
+		int leftIndex = Math.min(mid - 1, array[mid]);
+		int left = magicSearch(array, start, leftIndex);
+		
+		if (left >=0 ) {
+			return left;
+		}
+		
+		int rightIndex = Math.max(mid + 1, array[mid]);
+		int right = magicSearch(array, rightIndex, end);
+		
+		return right;
 	}
 }
